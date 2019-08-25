@@ -1,13 +1,21 @@
 Package: mapstatHelpers
-Title: What the Package Does (One Line, Title Case)
+Title: Helper Functions for the Mapstat Format and Friends
 Version: 0.0.0.9000
 Authors@R: 
-    person(given = "First",
-           family = "Last",
+    person(given = "Timo",
+           family = "Röder",
            role = c("aut", "cre"),
-           email = "first.last@example.com",
-           comment = c(ORCID = "YOUR-ORCID-ID"))
-Description: What the package does (one paragraph).
-License: What license it uses
+           email = "roeder.t17@gmail.com")
+Description: The package provides utility functions for dealing with file
+    formats associated with CGE's new metagenomic workflow, such as mapstat
+    and refdata.
+License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
+Imports: 
+    dplyr,
+    readr,
+    purrr,
+    magrittr,
+    rlang
+RoxygenNote: 6.1.1
