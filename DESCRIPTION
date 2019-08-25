@@ -1,6 +1,6 @@
 Package: mapstatHelpers
 Title: Helper Functions for the Mapstat Format and Friends
-Version: 0.0.0.9000
+Version: 0.1.0
 Authors@R: 
     person(given = "Timo",
            family = "Röder",
