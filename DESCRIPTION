@@ -17,5 +17,6 @@ Imports:
     readr,
     purrr,
     magrittr,
-    rlang
+    rlang,
+    data.table
 RoxygenNote: 6.1.1

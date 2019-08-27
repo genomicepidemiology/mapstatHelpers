@@ -4,10 +4,19 @@
 \alias{read_refdata}
 \title{Import a refdata file}
 \usage{
-read_refdata(path)
+read_refdata(path, engine = "readr")
 }
 \arguments{
 \item{path}{Path to refdata file}
+
+\item{engine}{Which function should be used to read in the files?
+
+  The default, \code{"readr"}, uses the \code{read_delim()} function from the \code{readr}
+  package. You can also choose \code{"fread"}, which will use \code{fread()}
+  from the \code{data.table} package.
+
+  \code{"readr"} is a bit slower, but throws more useful warnings. You can cut
+  the reading time by about 30 to 40 percent with \code{"fread"}.}
 }
 \value{
 A data frame containing the refdata information.

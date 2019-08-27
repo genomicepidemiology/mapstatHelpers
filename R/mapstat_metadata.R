@@ -4,8 +4,6 @@
 #'
 #' @return A list containing the six metadata fields parsed from the 'mapstat' file.
 #' @export
-#'
-#' @examples
 get_single_metadata <- function(path, shorten_sample_id = TRUE) {
   sample_id <- ifelse(shorten_sample_id,
                       sub(".mapstat", "", basename(path)),
@@ -29,8 +27,6 @@ get_single_metadata <- function(path, shorten_sample_id = TRUE) {
 #' @return A data frame containing the metadata of the provided mapstat files.
 #'   A quick summary of each column is printed to the console.
 #' @export
-#'
-#' @examples
 get_multiple_metadata <- function(input, type = "directory", ...) {
   input_files <- parse_multi_input(input_to_parse = input, type_to_parse = type)
 

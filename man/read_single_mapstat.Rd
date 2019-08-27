@@ -4,7 +4,7 @@
 \alias{read_single_mapstat}
 \title{Import a mapstat file}
 \usage{
-read_single_mapstat(path, shorten_sample_id = TRUE)
+read_single_mapstat(path, shorten_sample_id = TRUE, engine = "readr")
 }
 \arguments{
 \item{path}{Path to file}
@@ -14,6 +14,19 @@ read_single_mapstat(path, shorten_sample_id = TRUE)
 
   If \code{TRUE}, "samplename" is returned instead of the full path
   "foo/bar/samplename.mapstat". If\code{FALSE}, the full path is returned.}
+
+\item{engine}{Which function should be used to read in the files?
+
+  The default, \code{"readr"}, uses the \code{read_delim()} function from the \code{readr}
+  package. You can also choose \code{"fread"}, which will use \code{fread()}
+  from the \code{data.table} package.
+
+  \code{"readr"} is a bit slower, but throws more useful warnings. You can cut
+  the reading time by about 30 to 40 percent with \code{"fread"}.}
+}
+\value{
+A data frame containing information from the imported mapstat file.
+  The (by default shortened) filename is added in a column called \code{sample_id}.
 }
 \description{
 Import a mapstat file

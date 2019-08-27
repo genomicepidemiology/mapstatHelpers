@@ -13,8 +13,12 @@ imported, or a character vector containing file paths.}
 \item{type}{Specify whether the \code{input} is of type "directory" (default)
 or "vector".}
 
-\item{...}{Additional arguments to be passed to \code{\link{read_single_mapstat}}.
-At the moment, the only such argument is \code{shorten_sample_id}.}
+\item{...}{Additional arguments to be passed to \code{\link{read_single_mapstat}},
+auch as \code{shorten_sample_id} and \code{engine}.}
+}
+\value{
+A data frame containing information from all imported mapstat files.
+  The (by default shortened) filenames are added in a column called \code{sample_id}.
 }
 \description{
 Import multiple mapstat files
