@@ -16,6 +16,6 @@ read_refdata <- function(path, engine = "readr") {
     as.data.frame(readr::read_delim(path,
                                     delim = "\t",
                                     col_names = refdata_header,
-                                    comment = "#",
+                                    skip = 2,
                                     trim_ws = TRUE))
 }
