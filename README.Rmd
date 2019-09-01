@@ -1,0 +1,107 @@
+---
+output: github_document
+---
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#",
+  fig.path = "man/figures/README-",
+  out.width = "100%"
+)
+```
+# mapstatHelpers
+
+<!-- badges: start -->
+<!-- badges: end -->
+
+The *mapstatHelpers* package provides a few functions that will help you import
+sequencing results obtained with the new workflow at CGE, which involves file formats
+such as `.mapstat` and `.refdata`.
+
+## Installation
+
+You need to install the package directly from GitHub using the `install_github()`
+function from the `devtools` package.
+Of course this means that you might need to install `devtools` first:
+
+``` r
+install.packages("devtools")
+devtools::install_github("roeder/mapstatHelpers")
+```
+
+## Mapstat metadata
+Every `.mapstat` file starts with six lines containing information on the mapping
+that was performed in order to obtain the results within that file. 
+
+Here is an example header:
+
+```
+## method	KMA
+## version	1.2.8
+## database	ResFinder_20190213
+## fragmentCount	32955753
+## date	2019-07-23
+## command	/home/projects/cge/apps/kma/1.2.8/kma/kma -ipe "/home/projects/cge/analysis/EFFORT/trim/pig/1001-17-001_R1_001.trim.fq.gz" "/home/projects/cge/analysis/EFFORT/trim/pig/1001-17-001_R2_001.trim.fq.gz" -o "/home/projects/cge/analysis/EFFORT/kma_resfinder/2019-07-23_all_EFFORT_with_replicates_merged/ResFinder_20190213/ResFinder_20190213__1001-17-001_R1_001" -t_db /home/databases/metagenomics/kma_db/ResFinder/ResFinder_20190213 -mem_mode -ef -1t1 -cge -shm 1 -t 1 
+```
+
+The package offers functions for importing the mapping metadata of many `.mapstat` files
+at once.
+Use `get_multiple_metadata()` to load the metadata of all `.mapstat` files in a directory.
+The function returns a data frame and prints a summary of the metadata across all samples:
+```{r, echo=FALSE}
+library(mapstatHelpers)
+problem_example_dir <- "../kma_EFFORT/data/2019-07-23_all_EFFORT_with_replicates_merged/genomic_20190404/"
+nice_example_dir <- "../kma_EFFORT/data/2019-07-23_all_EFFORT_with_replicates_merged/ResFinder_20190213/"
+```
+
+```{r, eval=FALSE}
+library(mapstatHelpers)
+nice_example_dir <- "~/projects/nice_mapping/mapstat/"
+```
+
+```{r}
+nice_metadata <- get_multiple_metadata(nice_example_dir)
+```
+
+You can inspect the data frame containing the imported metadata.
+Note that the name of each file is added in the column `sample_id`:
+```{r}
+head(nice_metadata)
+```
+
+An additional warning message is printed if multiple mapping methods,
+method versions or database versions are detected:
+```{r, eval=FALSE}
+problem_example_dir <- "~/projects/problematic_mapping/mapstat/"
+```
+
+```{r}
+problem_metadata <- get_multiple_metadata(problem_example_dir)
+```
+
+After importing the metadata table, you can always print the summary again by
+using `check_metadata()`:
+```{r}
+check_metadata(problem_metadata)
+```
+
+## Importing mapstat files
+Once you are happy with the metadata corresponding to all your `.mapstat` files,
+you can go ahead and import the actual content, i.e. the mapping results, using
+`read_multiple_mapstats()`:
+```{r}
+nice_mapstat_results <- read_multiple_mapstats(nice_example_dir)
+head(nice_mapstat_results)
+```
+
+## Importing refdata files
+Last (and kind of least), the package also allows the import of `.refdata` files.
+We use such files for the taxonomic annotation corresponding to our large genome 
+databases.
+Import them with `read_refdata()`:
+```{r, eval=FALSE}
+genomic_refdata <- read_refdata("~/projects/nice_mapping/genomic_20190404.refdata")
+```
