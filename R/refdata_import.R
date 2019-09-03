@@ -16,6 +16,12 @@ read_refdata <- function(path, engine = "readr") {
     as.data.frame(readr::read_delim(path,
                                     delim = "\t",
                                     col_names = refdata_header,
+                                    col_types =
+                                      readr::cols(
+                                        .default = readr::col_character(),
+                                        id_len = readr::col_integer(),
+                                        db_order = readr::col_integer()
+                                      ),
                                     skip = 2,
                                     trim_ws = TRUE))
 }
